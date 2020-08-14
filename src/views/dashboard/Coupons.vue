@@ -2,7 +2,7 @@
   <div>
     <h2>後台優待券列表</h2>
 
-    <div id="app" class="container mt-3">
+    <div class="container mt-3">
       <div>
         <Loading :active.sync="isLoading"></Loading>
         <div class="text-right mt-4">
@@ -34,15 +34,11 @@
                   <button
                     class="btn btn-outline-primary btn-sm"
                     @click="openModal('edit', item, index)"
-                  >
-                    編輯
-                  </button>
+                  >編輯</button>
                   <button
                     class="btn btn-outline-danger btn-sm"
                     @click="openModal('delete', item, index)"
-                  >
-                    刪除
-                  </button>
+                  >刪除</button>
                 </div>
               </td>
             </tr>
@@ -129,9 +125,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                  取消
-                </button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" @click="updateCoupon">確認</button>
               </div>
             </div>
@@ -161,9 +155,7 @@
                 優待券(刪除後將無法恢復)。
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                  取消
-                </button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-danger" @click="delCoupon">確認刪除</button>
               </div>
             </div>
@@ -174,12 +166,12 @@
   </div>
 </template>
 <script>
-import Pagination from './Pagination.vue';
+import Pagination from '../Pagination.vue';
 import $ from 'jquery';
 
 export default {
   components: {
-    Pagination
+    Pagination,
   },
   created() {
     this.getCoupons(1);
@@ -197,7 +189,7 @@ export default {
 
       this.$http
         .get(api)
-        .then(response => {
+        .then((response) => {
           this.isLoading = false;
           //console.log(response);
           console.log(response.data.data);
@@ -213,7 +205,7 @@ export default {
 
           console.log(this.orders);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           this.isLoading = false;
         });
@@ -244,13 +236,13 @@ export default {
           //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
           this.$http
             .post(api, this.tempCoupon)
-            .then(response => {
+            .then((response) => {
               console.log(this.tempCoupon);
               //this.orders.push(this.tempCoupon);
               $('#productModal').modal('hide');
               this.refreshScreen();
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
               alert(error.response.data.message);
               /*
@@ -278,12 +270,12 @@ export default {
           */
           this.$http
             .patch(api, this.tempCoupon)
-            .then(response => {
+            .then((response) => {
               //console.log(this.tempCoupon);
               this.refreshScreen();
               $('#productModal').modal('hide');
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
               alert(error.response.data.message);
             });
@@ -344,13 +336,13 @@ export default {
       //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.tempCoupon.id}`;
       this.$http
         .delete(api, this.tempCoupon)
-        .then(response => {
+        .then((response) => {
           //this.orders.splice(this.tempIndex, 1);
           //console.log(this.orders);
           $('#delCouponModal').modal('hide');
           this.refreshScreen();
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           alert(error.response.data.message);
         });
@@ -364,7 +356,7 @@ export default {
         }
       }
       */
-    }
+    },
   },
   data() {
     return {
@@ -377,15 +369,15 @@ export default {
         title: '',
         percent: 0,
         enabled: false,
-        deadline_at: ''
+        deadline_at: '',
       },
       tempIndex: 0,
       user: {
         token: '',
-        uuid: ''
+        uuid: '',
       },
-      pages: { current_page: 1, total_pages: 0 }
+      pages: { current_page: 1, total_pages: 0 },
     };
-  }
+  },
 };
 </script>

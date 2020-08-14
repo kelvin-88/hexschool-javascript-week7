@@ -2,45 +2,29 @@
   <div>
     <h2>後台產品列表</h2>
 
-    <div id="app" class="container mt-3">
+    <div class="container mt-3">
       <div>
         <Loading :active.sync="isLoading"></Loading>
         <div class="text-right mt-4">
-          <button class="btn btn-primary" @click="openModal('new')">
-            建立新的產品
-          </button>
+          <button class="btn btn-primary" @click="openModal('new')">建立新的產品</button>
         </div>
         <table class="table mt-4">
           <thead>
             <tr>
-              <th width="120">
-                分類
-              </th>
+              <th width="120">分類</th>
               <th>產品名稱</th>
-              <th width="120">
-                原價
-              </th>
-              <th width="120">
-                售價
-              </th>
-              <th width="100">
-                是否啟用
-              </th>
-              <th width="120">
-                編輯
-              </th>
+              <th width="120">原價</th>
+              <th width="120">售價</th>
+              <th width="100">是否啟用</th>
+              <th width="120">編輯</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(item, index) in products" :key="item.id">
               <td>{{ item.category }}</td>
               <td>{{ item.title }}</td>
-              <td class="text-right">
-                {{ item.origin_price }}
-              </td>
-              <td class="text-right">
-                {{ item.price }}
-              </td>
+              <td class="text-right">{{ item.origin_price }}</td>
+              <td class="text-right">{{ item.price }}</td>
               <td>
                 <span v-if="item.is_enabled" class="text-success">啟用</span>
                 <span v-else>未啟用</span>
@@ -50,15 +34,11 @@
                   <button
                     class="btn btn-outline-primary btn-sm"
                     @click="openModal('edit', item, index)"
-                  >
-                    編輯
-                  </button>
+                  >編輯</button>
                   <button
                     class="btn btn-outline-danger btn-sm"
                     @click="openModal('delete', item, index)"
-                  >
-                    刪除
-                  </button>
+                  >刪除</button>
                 </div>
               </td>
             </tr>
@@ -166,8 +146,7 @@
                         type="text"
                         class="form-control"
                         placeholder="請輸入產品描述"
-                      >
-                      </textarea>
+                      ></textarea>
                     </div>
                     <div class="form-group">
                       <label for="content">說明內容</label>
@@ -177,8 +156,7 @@
                         type="text"
                         class="form-control"
                         placeholder="請輸入說明內容"
-                      >
-                      </textarea>
+                      ></textarea>
                     </div>
                     <div class="form-group">
                       <div class="form-check">
@@ -197,12 +175,8 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                  取消
-                </button>
-                <button type="button" class="btn btn-primary" @click="updateProduct">
-                  確認
-                </button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" @click="updateProduct">確認</button>
               </div>
             </div>
           </div>
@@ -231,12 +205,8 @@
                 商品(刪除後將無法恢復)。
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
-                  取消
-                </button>
-                <button type="button" class="btn btn-danger" @click="delProduct">
-                  確認刪除
-                </button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" @click="delProduct">確認刪除</button>
               </div>
             </div>
           </div>
@@ -246,12 +216,12 @@
   </div>
 </template>
 <script>
-import Pagination from './Pagination.vue';
+import Pagination from '../Pagination.vue';
 import $ from 'jquery';
 
 export default {
   components: {
-    Pagination
+    Pagination,
   },
   created() {
     this.getProducts(1);
@@ -269,7 +239,7 @@ export default {
 
       this.$http
         .get(api)
-        .then(response => {
+        .then((response) => {
           this.isLoading = false;
           //console.log(response);
           console.log(response.data.data);
@@ -285,7 +255,7 @@ export default {
 
           console.log(this.products);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           this.isLoading = false;
         });
@@ -300,13 +270,13 @@ export default {
           //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
           this.$http
             .post(api, this.tempProduct)
-            .then(response => {
+            .then((response) => {
               console.log(this.tempProduct);
               //this.products.push(this.tempProduct);
               $('#productModal').modal('hide');
               this.refreshScreen();
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
               alert(error.response.data.message);
               /*
@@ -334,12 +304,12 @@ export default {
           */
           this.$http
             .patch(api, this.tempProduct)
-            .then(response => {
+            .then((response) => {
               //console.log(this.tempProduct);
               this.refreshScreen();
               $('#productModal').modal('hide');
             })
-            .catch(error => {
+            .catch((error) => {
               console.log(error);
               alert(error.response.data.message);
             });
@@ -368,7 +338,7 @@ export default {
         case 'new':
           this.title = '新增產品';
           this.tempProduct = {
-            imageUrl: []
+            imageUrl: [],
           };
           this.isNew = true;
           $('#productModal').modal('show');
@@ -395,13 +365,13 @@ export default {
       //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`;
       this.$http
         .delete(api, this.tempProduct)
-        .then(response => {
+        .then((response) => {
           //this.products.splice(this.tempIndex, 1);
           //console.log(this.products);
           $('#delProductModal').modal('hide');
           this.refreshScreen();
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           alert(error.response.data.message);
         });
@@ -415,7 +385,7 @@ export default {
         }
       }
       */
-    }
+    },
   },
   data() {
     return {
@@ -423,15 +393,15 @@ export default {
       title: '',
       products: [],
       tempProduct: {
-        imageUrl: []
+        imageUrl: [],
       },
       tempIndex: 0,
       user: {
         token: '',
-        uuid: ''
+        uuid: '',
       },
-      pages: { current_page: 1, total_pages: 0 }
+      pages: { current_page: 1, total_pages: 0 },
     };
-  }
+  },
 };
 </script>
