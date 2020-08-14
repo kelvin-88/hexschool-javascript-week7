@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <h2>後台管理頁面</h2>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <router-link class="navbar-brand" to="/admin">後台管理頁面</router-link>

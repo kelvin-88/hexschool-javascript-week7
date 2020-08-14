@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="mx-3">
     <!--div id="nav">
       <router-link to="/">首頁</router-link> | <router-link to="/products">產品列表</router-link> |
       <router-link to="/shoppingcart">購物車</router-link> |
@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<!--style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -64,4 +64,4 @@
     }
   }
 }
-</style>
+</style-->

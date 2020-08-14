@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <h2>前台管理頁面</h2>
     <!--div id="nav">
       <router-link to="/">首頁</router-link> | <router-link to="/products">產品列表</router-link> |
@@ -52,7 +52,7 @@ export default {
     return {};
   },
   methods: {
-    checkLogin() {}
-  }
+    checkLogin() {},
+  },
 };
 </script>

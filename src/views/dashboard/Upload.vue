@@ -2,7 +2,7 @@
   <div>
     <h2>後台產品列表</h2>
 
-    <div id="app" class="container mt-3">
+    <div class="container mt-3">
       <div>
         <Loading :active.sync="isLoading"></Loading>
         <input id="customFile" type="file" class="form-control" @change="uploadFile" />
@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import Pagination from './Pagination.vue';
+import Pagination from '../Pagination.vue';
 
 export default {
   components: {
