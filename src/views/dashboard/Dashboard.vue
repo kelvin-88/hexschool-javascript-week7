@@ -9,16 +9,16 @@
             <router-link class="nav-link" to="/admin/products">產品列表</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/coupons">優待券</router-link>
+            <router-link class="nav-link" to="/admin/coupons">優待券列表</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/orders">訂單</router-link>
+            <router-link class="nav-link" to="/admin/orders">訂單列表</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/images">圖片</router-link>
+            <router-link class="nav-link" to="/admin/images">圖片儲存列表</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/">前台</router-link>
+            <router-link class="nav-link" to="/">回前台</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/logout">登出</router-link>
