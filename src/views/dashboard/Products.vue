@@ -7,6 +7,9 @@
         <Loading :active.sync="isLoading"></Loading>
         <div class="text-right mt-4">
           <button class="btn btn-primary" @click="openModal('new')">建立新的產品</button>
+          <button class="btn btn-primary" @click="showDeleteAllProducts()">Delete all</button>
+          <button class="btn btn-primary" @click="addSampleData()">Sample Data</button>
+          <button class="btn btn-primary" @click="deleteAllShoppingCart()">Delete Shopping Cart</button>
         </div>
         <table class="table mt-4">
           <thead>
@@ -26,7 +29,7 @@
               <td class="text-right">{{ item.origin_price }}</td>
               <td class="text-right">{{ item.price }}</td>
               <td>
-                <span v-if="item.is_enabled" class="text-success">啟用</span>
+                <span v-if="item.enabled" class="text-success">啟用</span>
                 <span v-else>未啟用</span>
               </td>
               <td>
@@ -161,14 +164,14 @@
                     <div class="form-group">
                       <div class="form-check">
                         <input
-                          id="is_enabled"
-                          v-model="tempProduct.is_enabled"
+                          id="enabled"
+                          v-model="tempProduct.enabled"
                           class="form-check-input"
                           type="checkbox"
-                          :true-value="1"
-                          :false-value="0"
+                          :true-value="true"
+                          :false-value="false"
                         />
-                        <label class="form-check-label" for="is_enabled">是否啟用</label>
+                        <label class="form-check-label" for="enabled">是否啟用</label>
                       </div>
                     </div>
                   </div>
@@ -211,6 +214,32 @@
             </div>
           </div>
         </div>
+        <div
+          id="delAllProductModal"
+          class="modal fade"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content border-0">
+              <div class="modal-header bg-danger text-white">
+                <h5 id="exampleModalLabel" class="modal-title">
+                  <span>刪除所有產品</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">是否刪除所有商品(刪除後將無法恢復)。</div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" @click="delAllProducts">確認刪除</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -230,6 +259,263 @@ export default {
   methods: {
     refreshScreen() {
       this.getProducts(this.pages.current_page);
+    },
+
+    deleteAllShoppingCart() {
+      let api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/ec/shopping/all/product`;
+      //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
+      this.$http
+        .delete(api)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error.response);
+          //alert(error.response.data.message);
+        });
+    },
+    addSampleData() {
+      let data = [
+        {
+          title: '樹脂1時尚眼鏡',
+          category: '樹脂',
+          content: '樹脂眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>樹脂系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1587929501535-1e2d559e8488?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+          ],
+          enabled: true,
+          origin_price: 2100,
+          price: 1600,
+        },
+        {
+          title: '樹脂2時尚眼鏡',
+          category: '樹脂',
+          content: '樹脂眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>樹脂系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          ],
+          enabled: true,
+          origin_price: 2200,
+          price: 1700,
+        },
+        {
+          title: '樹脂3時尚眼鏡',
+          category: '樹脂',
+          content: '樹脂眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>樹脂系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1578749183382-762c9d79fe61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=986&q=80',
+          ],
+          enabled: true,
+          origin_price: 2300,
+          price: 1800,
+        },
+        {
+          title: '樹脂4時尚眼鏡',
+          category: '樹脂',
+          content: '樹脂眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>樹脂系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          ],
+          enabled: true,
+          origin_price: 2400,
+          price: 1900,
+        },
+        {
+          title: '塑膠1時尚眼鏡',
+          category: '塑膠',
+          content: '塑膠眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1475312775467-159e03aaa7cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+          ],
+          enabled: true,
+          origin_price: 2500,
+          price: 2000,
+        },
+        {
+          title: '塑膠2時尚眼鏡',
+          category: '塑膠',
+          content: '塑膠眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1559090336-65e03f0fb62f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80',
+          ],
+          enabled: true,
+          origin_price: 2600,
+          price: 2100,
+        },
+        {
+          title: '塑膠3時尚眼鏡',
+          category: '塑膠',
+          content: '塑膠眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1594370607187-38a23fe6aa24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80',
+          ],
+          enabled: true,
+          origin_price: 2700,
+          price: 2200,
+        },
+        {
+          title: '塑膠4時尚眼鏡',
+          category: '塑膠',
+          content: '塑膠眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1592006016974-e94636fdfe83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1959&q=80',
+          ],
+          enabled: true,
+          origin_price: 2800,
+          price: 2300,
+        },
+        {
+          title: '塑膠5時尚眼鏡',
+          category: '塑膠',
+          content: '塑膠眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1542629458-eaa56d608062?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80',
+          ],
+          enabled: true,
+          origin_price: 2900,
+          price: 2400,
+        },
+        {
+          title: '塑膠6時尚眼鏡',
+          category: '塑膠',
+          content: '塑膠眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1475312775467-159e03aaa7cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          ],
+          enabled: true,
+          origin_price: 3000,
+          price: 2500,
+        },
+        {
+          title: '金屬1時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1589176449149-71f7ea77ec25?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80',
+          ],
+          enabled: true,
+          origin_price: 3100,
+          price: 2600,
+        },
+        {
+          title: '金屬2時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1546180245-c59500ad14d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80',
+          ],
+          enabled: true,
+          origin_price: 3200,
+          price: 2700,
+        },
+        {
+          title: '金屬3時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/reserve/mFzm7UbxRle0Qhm5m3xM_IMG_7535.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80',
+          ],
+          enabled: true,
+          origin_price: 3300,
+          price: 2800,
+        },
+        {
+          title: '金屬4時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1574065557312-b7cc977d8a89?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+          ],
+          enabled: true,
+          origin_price: 3400,
+          price: 2900,
+        },
+        {
+          title: '金屬5時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1511499767150-a48a237f0083?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2000&q=80',
+          ],
+          enabled: true,
+          origin_price: 3500,
+          price: 3000,
+        },
+        {
+          title: '金屬6時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1566232212863-d8543adb6eda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+          ],
+          enabled: true,
+          origin_price: 3600,
+          price: 3100,
+        },
+        {
+          title: '金屬7時尚眼鏡',
+          category: '金屬',
+          content: '金屬眼鏡系列，容易保養, 配合亞洲人臉型的眼鏡',
+          description:
+            '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
+          imageUrl: [
+            'https://images.unsplash.com/photo-1557775446-b5678ecaf086?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
+          ],
+          enabled: true,
+          origin_price: 3700,
+          price: 3200,
+        },
+      ];
+      var i;
+      var api;
+      for (i in data) {
+        let product = data[i];
+        console.log(product);
+        api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product`;
+        //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
+        this.$http
+          .post(api, product)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error.response);
+            //alert(error.response.data.message);
+          });
+      }
+      //console.log(data);
     },
     getProducts(page = 1) {
       this.isLoading = true;
@@ -356,6 +642,28 @@ export default {
         default:
           break;
       }
+    },
+    delAllProducts() {
+      var api;
+
+      //alert('Delete all products');
+      //console.log(this.products);
+      for (let i = 0; i < this.products.length; i++) {
+        console.log(this.products[i].id);
+        api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/admin/ec/product/${this.products[i].id}`;
+        //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product/${this.tempProduct.id}`;
+        this.$http
+          .delete(api)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error.response.data.message);
+          });
+      }
+      $('#delAllProductModal').modal('hide');
+      this.refreshScreen();
     },
     delProduct() {
       console.log(this.tempProduct);
