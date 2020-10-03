@@ -6,10 +6,18 @@
       <div>
         <Loading :active.sync="isLoading"></Loading>
         <div class="text-right mt-4">
-          <button class="btn btn-primary" @click="openModal('new')">建立新的產品</button>
-          <button class="btn btn-primary" @click="showDeleteAllProducts()">Delete all</button>
-          <button class="btn btn-primary" @click="addSampleData()">Sample Data</button>
-          <button class="btn btn-primary" @click="deleteAllShoppingCart()">Delete Shopping Cart</button>
+          <button class="btn btn-primary" @click="openModal('new')">
+            建立新的產品
+          </button>
+          <button class="btn btn-primary" @click="showDeleteAllProducts()">
+            Delete all
+          </button>
+          <button class="btn btn-primary" @click="addSampleData()">
+            Sample Data
+          </button>
+          <button class="btn btn-primary" @click="deleteAllShoppingCart()">
+            Delete Shopping Cart
+          </button>
         </div>
         <table class="table mt-4">
           <thead>
@@ -37,11 +45,15 @@
                   <button
                     class="btn btn-outline-primary btn-sm"
                     @click="openModal('edit', item, index)"
-                  >編輯</button>
+                  >
+                    編輯
+                  </button>
                   <button
                     class="btn btn-outline-danger btn-sm"
                     @click="openModal('delete', item, index)"
-                  >刪除</button>
+                  >
+                    刪除
+                  </button>
                 </div>
               </td>
             </tr>
@@ -63,7 +75,12 @@
                 <h5 id="exampleModalLabel" class="modal-title">
                   <span>{{ title }}</span>
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -171,15 +188,29 @@
                           :true-value="true"
                           :false-value="false"
                         />
-                        <label class="form-check-label" for="enabled">是否啟用</label>
+                        <label class="form-check-label" for="enabled"
+                          >是否啟用</label
+                        >
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" @click="updateProduct">確認</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-dismiss="modal"
+                >
+                  取消
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  @click="updateProduct"
+                >
+                  確認
+                </button>
               </div>
             </div>
           </div>
@@ -198,7 +229,12 @@
                 <h5 id="exampleModalLabel" class="modal-title">
                   <span>刪除產品</span>
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -208,8 +244,20 @@
                 商品(刪除後將無法恢復)。
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger" @click="delProduct">確認刪除</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-dismiss="modal"
+                >
+                  取消
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  @click="delProduct"
+                >
+                  確認刪除
+                </button>
               </div>
             </div>
           </div>
@@ -228,14 +276,31 @@
                 <h5 id="exampleModalLabel" class="modal-title">
                   <span>刪除所有產品</span>
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">是否刪除所有商品(刪除後將無法恢復)。</div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-danger" @click="delAllProducts">確認刪除</button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-dismiss="modal"
+                >
+                  取消
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  @click="delAllProducts"
+                >
+                  確認刪除
+                </button>
               </div>
             </div>
           </div>
@@ -260,7 +325,9 @@ export default {
     refreshScreen() {
       this.getProducts(this.pages.current_page);
     },
-
+    showDeleteAllProducts() {
+      $('#delAllProductModal').modal('show');
+    },
     deleteAllShoppingCart() {
       let api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_UUID}/ec/shopping/all/product`;
       //api = `https://course-ec-api.hexschool.io/api/${this.user.uuid}/admin/ec/product`;
@@ -309,7 +376,7 @@ export default {
           description:
             '<ul><li>樹脂系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1578749183382-762c9d79fe61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=986&q=80',
+            'https://images.unsplash.com/photo-1547104442-a40f335740cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80',
           ],
           enabled: true,
           origin_price: 2300,
@@ -322,7 +389,7 @@ export default {
           description:
             '<ul><li>樹脂系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+            'https://images.unsplash.com/photo-1523754865311-b886113bb8de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1001&q=80',
           ],
           enabled: true,
           origin_price: 2400,
@@ -335,7 +402,7 @@ export default {
           description:
             '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1475312775467-159e03aaa7cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80',
+            'https://images.unsplash.com/photo-1556306510-31ca015374b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
           ],
           enabled: true,
           origin_price: 2500,
@@ -348,7 +415,7 @@ export default {
           description:
             '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1559090336-65e03f0fb62f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80',
+            'https://images.unsplash.com/photo-1601574259872-891051dae736?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1193&q=80',
           ],
           enabled: true,
           origin_price: 2600,
@@ -387,7 +454,7 @@ export default {
           description:
             '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1542629458-eaa56d608062?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1947&q=80',
+            'https://images.unsplash.com/photo-1515485315907-72cf613bb1de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
           ],
           enabled: true,
           origin_price: 2900,
@@ -400,7 +467,7 @@ export default {
           description:
             '<ul><li>塑膠系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1475312775467-159e03aaa7cd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
+            'https://images.unsplash.com/photo-1505428221302-9d1beeaa2801?ixlib=rb-1.2.1&auto=format&fit=crop&w=1047&q=80',
           ],
           enabled: true,
           origin_price: 3000,
@@ -426,7 +493,7 @@ export default {
           description:
             '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/photo-1546180245-c59500ad14d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80',
+            'https://images.unsplash.com/photo-1523884156331-22cc4f5df98d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80',
           ],
           enabled: true,
           origin_price: 3200,
@@ -439,7 +506,7 @@ export default {
           description:
             '<ul><li>金屬系列</li><li>簡約風格</li><li>適合任何臉形</li></ul>',
           imageUrl: [
-            'https://images.unsplash.com/reserve/mFzm7UbxRle0Qhm5m3xM_IMG_7535.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80',
+            'https://images.unsplash.com/photo-1534844978-b859e5a09ad6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80',
           ],
           enabled: true,
           origin_price: 3300,
